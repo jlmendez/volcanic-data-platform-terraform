@@ -28,3 +28,19 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -no-color
+
+      - name: Configure Databricks authentication
+        shell: bash
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          mkdir -p ~/.databricks
+          printf '[VOLCANIC]\nhost = %s\ntoken = %s\n' \
+            "$DATABRICKS_HOST" \
+            "$DATABRICKS_TOKEN" \
+            > ~/.databrickscfg
+          chmod 600 ~/.databrickscfg
