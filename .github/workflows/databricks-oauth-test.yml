@@ -1,0 +1,21 @@
+name: Databricks OAuth M2M Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-oauth:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+      DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      DATABRICKS_AUTH_TYPE: oauth-m2m
+
+    steps:
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Verify service principal identity
+        run: databricks current-user me
