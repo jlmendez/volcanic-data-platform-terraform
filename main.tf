@@ -4,6 +4,14 @@ terraform {
       source = "databricks/databricks"
     }
   }
+
+backend "s3" {
+  bucket       = "volcanic-terraform-state-1b3d5f-471112658477-us-east-2-an"
+  key          = "volcanic-data-platform/terraform.tfstate"
+  region       = "us-east-2"
+  use_lockfile = true
+  encrypt      = true
+  }
 }
 
 provider "databricks" {
