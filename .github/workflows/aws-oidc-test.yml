@@ -22,14 +22,14 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: Test allowed S3 read
-        run: aws s3 cp s3://<BUCKET>/bronze/sample.txt -
+        run: aws s3 cp s3://volcanic-data-platform-lab-xxxx-471112658477-us-east-2-an/bronze/sample.txt -
 
       - name: Test denied S3 write
         shell: bash
         run: |
           echo "This write should be denied" > denied-test.txt
 
-          if aws s3 cp denied-test.txt s3://<BUCKET>/bronze/denied-test.txt; then
+          if aws s3 cp denied-test.txt s3://volcanic-data-platform-lab-xxxx-471112658477-us-east-2-an/bronze/denied-test.txt; then
             echo "ERROR: write unexpectedly succeeded"
             exit 1
           else
